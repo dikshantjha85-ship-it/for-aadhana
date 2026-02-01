@@ -1,158 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Aadhana ❤️</title>
-    <style>
-        :root {
-            --primary-pink: #ff4d6d;
-            --secondary-pink: #ff758f;
-            --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-        }
-
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-gradient);
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            transition: background 1s ease;
-        }
-
-        /* Glassmorphism Card */
-        .card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 50px 30px;
-            border-radius: 30px;
-            text-align: center;
-            max-width: 400px;
-            width: 85%;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            z-index: 10;
-            position: relative;
-        }
-
-        h1 {
-            color: var(--primary-pink);
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-        }
-
-        p {
-            color: #555;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .img-container {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-top: 30px;
-            min-height: 60px;
-        }
-
-        button {
-            padding: 12px 28px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-        }
-
-        .yes-btn {
-            background: var(--primary-pink);
-            color: white;
-            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.25);
-        }
-        .yes-btn:hover { transform: translateY(-4px); filter: brightness(1.02); }
-
-        .no-btn {
-            background: transparent;
-            color: var(--secondary-pink);
-            border: 2px solid var(--secondary-pink);
-        }
-        .no-btn:hover { transform: translateY(-4px); }
-
-        /* small responsive tweak */
-        @media (max-width: 420px) {
-            .card { padding: 30px 20px; border-radius: 20px; }
-            h1 { font-size: 1.8rem; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Aadhana ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: Arial, sans-serif;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    h1 { color: #e63946; }
+    p { color: #444; }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .yes { background: #e63946; color: white; }
+    .no { background: #ddd; }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <div class="img-container">💖</div>
-        <h1>Will you be mine?</h1>
-        <p>A little page I made for you. Will you say yes?</p>
+  <div class="card" id="card">
+    <h1>Hey Aadhana ❤️</h1>
+    <p>Will you be my Valentine?</p>
+    <button class="yes" onclick="yesClick()">Yes 💕</button>
+    <button class="no" onmouseover="moveNo()">No 🙈</button>
+  </div>
 
-        <div class="btn-container">
-            <button class="yes-btn" id="yesBtn">Yes</button>
-            <button class="no-btn" id="noBtn">No</button>
-        </div>
-    </div>
-
-    <script>
-        // playful "No" button avoidance
-        const noBtn = document.getElementById('noBtn');
-        const yesBtn = document.getElementById('yesBtn');
-
-        function moveButtonRandomly(btn) {
-            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-            const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-            // small padding so button stays visible
-            const maxX = vw - 120;
-            const maxY = vh - 120;
-            const x = Math.floor(Math.random() * maxX);
-            const y = Math.floor(Math.random() * maxY);
-            btn.style.position = 'absolute';
-            btn.style.left = `${x}px`;
-            btn.style.top = `${y}px`;
-        }
-
-        noBtn.addEventListener('mouseenter', () => moveButtonRandomly(noBtn));
-        noBtn.addEventListener('click', (e) => {
-            // just in case user manages to click, swap with Yes
-            e.preventDefault();
-            const yesRect = yesBtn.getBoundingClientRect();
-            const noRect = noBtn.getBoundingClientRect();
-            yesBtn.style.transform = 'scale(1.05)';
-            noBtn.style.transform = 'scale(0.95)';
-            // swap positions
-            const yesLeft = yesBtn.style.left, yesTop = yesBtn.style.top;
-            yesBtn.style.position = 'absolute';
-            yesBtn.style.left = noRect.left + 'px';
-            yesBtn.style.top = noRect.top + 'px';
-            noBtn.style.left = (yesRect.left || 0) + 'px';
-            noBtn.style.top = (yesRect.top || 0) + 'px';
-        });
-
-        yesBtn.addEventListener('click', () => {
-            alert('❤️ Thank you! ❤️');
-        });
-    </script>
+  <script>
+    function yesClick() {
+      document.getElementById('card').innerHTML = `
+        <h1>Yay!! 💖</h1>
+        <p>You just made my day, Aadhana.<br>Happy Valentine’s ❤️</p>
+      `;
+    }
+    function moveNo() {
+      const btn = document.querySelector('.no');
+      const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+      btn.style.position = 'fixed';
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+    }
+  </script>
 </body>
 </html>
