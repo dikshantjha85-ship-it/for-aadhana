@@ -79,9 +79,80 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
 
         .yes-btn {
             background: var(--primary-pink);
             color: white;
-            box-shadow: 0 10px 20px rgba(255, 77, 109
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.25);
+        }
+        .yes-btn:hover { transform: translateY(-4px); filter: brightness(1.02); }
+
+        .no-btn {
+            background: transparent;
+            color: var(--secondary-pink);
+            border: 2px solid var(--secondary-pink);
+        }
+        .no-btn:hover { transform: translateY(-4px); }
+
+        /* small responsive tweak */
+        @media (max-width: 420px) {
+            .card { padding: 30px 20px; border-radius: 20px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="img-container">💖</div>
+        <h1>Will you be mine?</h1>
+        <p>A little page I made for you. Will you say yes?</p>
+
+        <div class="btn-container">
+            <button class="yes-btn" id="yesBtn">Yes</button>
+            <button class="no-btn" id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+        // playful "No" button avoidance
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+
+        function moveButtonRandomly(btn) {
+            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+            const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+            // small padding so button stays visible
+            const maxX = vw - 120;
+            const maxY = vh - 120;
+            const x = Math.floor(Math.random() * maxX);
+            const y = Math.floor(Math.random() * maxY);
+            btn.style.position = 'absolute';
+            btn.style.left = `${x}px`;
+            btn.style.top = `${y}px`;
+        }
+
+        noBtn.addEventListener('mouseenter', () => moveButtonRandomly(noBtn));
+        noBtn.addEventListener('click', (e) => {
+            // just in case user manages to click, swap with Yes
+            e.preventDefault();
+            const yesRect = yesBtn.getBoundingClientRect();
+            const noRect = noBtn.getBoundingClientRect();
+            yesBtn.style.transform = 'scale(1.05)';
+            noBtn.style.transform = 'scale(0.95)';
+            // swap positions
+            const yesLeft = yesBtn.style.left, yesTop = yesBtn.style.top;
+            yesBtn.style.position = 'absolute';
+            yesBtn.style.left = noRect.left + 'px';
+            yesBtn.style.top = noRect.top + 'px';
+            noBtn.style.left = (yesRect.left || 0) + 'px';
+            noBtn.style.top = (yesRect.top || 0) + 'px';
+        });
+
+        yesBtn.addEventListener('click', () => {
+            alert('❤️ Thank you! ❤️');
+        });
+    </script>
+</body>
+</html>
